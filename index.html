@@ -49,18 +49,54 @@
 }
 
 
-    .invitacion {
-      position: relative;
-      z-index: 1;
-      background-color: #ffffffdd;
-      border: 2px solid rgb(127, 0, 0);
-      border-radius: 20px;
-      padding: 30px;
-      max-width: 500px;
-      text-align: center;
-      margin: 80px auto;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
+   .invitacion {
+  position: relative;
+  z-index: 1;
+  background-color: #ffffffdd;
+  border: 2px solid rgb(127, 0, 0);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  text-align: center;
+  margin: 80px auto;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  font-family: 'Fredoka', sans-serif;
+
+  /* Animación inicial suave y efecto continuo */
+  animation: aparecer 10s ease forwards, brillo 8s infinite alternate, flotarTarjeta 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes aparecer {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes brillo {
+  0% {
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes flotarTarjeta {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+
 
     h1 {
       color: rgb(127, 0, 0);
@@ -150,6 +186,65 @@
         gap: 15px;
       }
     }
+
+body.fiestero {
+  background: linear-gradient(135deg, #000, #111);
+  animation: coloresFiesta 4s infinite alternate;
+}
+
+.invitacion.fiestera {
+  border: 3px solid #ff00ff;
+  background: #000000cc;
+  color: #0ff;
+  opacity: 1 !important; /* ← Esto fuerza que aparezca */
+  transform: translateY(0) scale(1) !important; /* ← Reestablece la posición */
+  animation: brillarFiesta 1s infinite alternate, flotarTarjeta 4s ease-in-out infinite;
+}
+
+
+@keyframes coloresFiesta {
+  0%   { background: #000; }
+  50%  { background: #190061; }
+  100% { background: #000; }
+}
+
+@keyframes brillarFiesta {
+  0%   { box-shadow: 0 0 10px #ff00ff; }
+  100% { box-shadow: 0 0 30px #00ffff; }
+}
+
+.invitacion.fiestera {
+  position: relative;
+  z-index: 1;
+  border: none; /* ocultamos el borde estático */
+  background: #000000cc;
+  color: #0ff;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  animation: brillarFiesta 1s infinite alternate, flotarTarjeta 4s ease-in-out infinite;
+  box-shadow: 0 0 30px #ff00ff;
+}
+
+/* Borde animado con gradiente arcoíris */
+.invitacion.fiestera::before {
+  content: '';
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  background: linear-gradient(270deg,
+    #ff00ff, #00ffff, #00ff00, #ffff00, #ff0000, #ff00ff);
+  background-size: 600% 600%;
+  border-radius: 24px;
+  z-index: -1;
+  animation: rainbowBorder 6s ease infinite;
+}
+
+/* Animación del gradiente */
+@keyframes rainbowBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
   </style>
 </head>
 <body>
@@ -179,7 +274,13 @@
 
     <div class="ubicacion">
       <a href="https://www.google.com/maps/search/Mi+Casa" target="_blank">Ver ubicación en Google Maps</a>
-    </div>
+<div style="margin-top: 25px;">
+  <button id="modoFiestaBtn" style="background: #ff00ff; color: white; font-weight: bold; padding: 12px 20px; border-radius: 10px; border: none; cursor: pointer;">
+    🕹️ Activar Modo Fiesta
+  </button>
+</div>
+   
+ </div>
     <!-- Audio embebido como iframe oculto -->
   <iframe id="audioFrame"
     src=""
@@ -190,7 +291,10 @@
   <button class="boton-musica" onclick="toggleMusica(event)">
     ▶ Reproducir música
   </button>
+
   </div>
+
+  
 
   <script>
     // Crear confeti grande
@@ -297,11 +401,35 @@
     }, { once: true });
 
 
-
     
   </script>
   
+<script>
+  const btnFiesta = document.getElementById('modoFiestaBtn');
+  const audio = document.getElementById('musicaFiesta');
+  const invitacion = document.querySelector('.invitacion');
 
+  let fiestaActiva = false;
+
+  btnFiesta.addEventListener('click', () => {
+    fiestaActiva = !fiestaActiva;
+
+    if (fiestaActiva) {
+      document.body.classList.add('fiestero');
+      invitacion.classList.add('fiestera');
+      audio.play();
+      btnFiesta.textContent = '🛑 Desactivar Modo Fiesta';
+      btnFiesta.style.background = '#111';
+    } else {
+      document.body.classList.remove('fiestero');
+      invitacion.classList.remove('fiestera');
+      audio.pause();
+      audio.currentTime = 0;
+      btnFiesta.textContent = '🕹️ Activar Modo Fiesta';
+      btnFiesta.style.background = '#ff00ff';
+    }
+  });
+</script>
   
 
  
