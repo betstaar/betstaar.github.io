@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invitación de Cumpleaños</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      font-family: 'Fredoka', sans-serif;
+      background: linear-gradient(to bottom, #e0f0ff, #ffffff);
+    }
+
+    .confeti-container {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .confeti-piece {
+      position: absolute;
+      width: 50px;
+      height: 20px;
+      background-color: red;
+      opacity: 0.85;
+      animation-name: caerConfeti;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      border-radius: 50%; /* confeti redondo grande */
+      filter: drop-shadow(0 0 2px rgba(0,0,0,0.1));
+    }
+
+    @keyframes caerConfeti {
+  0% {
+    transform: translateY(-30px) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) translateX(-50px) rotate(1080deg);
+  }
+}
+
+
+    .invitacion {
+      position: relative;
+      z-index: 1;
+      background-color: #ffffffdd;
+      border: 2px solid rgb(127, 0, 0);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      text-align: center;
+      margin: 80px auto;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: rgb(127, 0, 0);
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .botones {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      font-family: inherit;
+    }
+
+    .asistir {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    .talvez {
+      background-color: rgb(127, 0, 0);
+      color: white;
+    }
+
+    /* Reloj digital */
+    #reloj {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 28px;
+      color: #222;
+      margin-top: 25px;
+      letter-spacing: 2px;
+      background: #000;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #00FF00;
+      display: inline-block;
+    }
+
+    .etiquetas {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #555;
+      display: flex;
+      justify-content: space-around;
+      max-width: 350px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ubicacion {
+      margin-top: 25px;
+    }
+
+    .ubicacion a {
+      text-decoration: none;
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .ubicacion a:hover {
+      background: #218838;
+    }
+
+    @media (max-width: 500px) {
+      .botones {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confeti grande animado -->
+  <div class="confeti-container" id="confeti-container"></div>
+
+  <div class="invitacion">
+    <h1>¡Estás Invitado a mi Cumpleaños!</h1>
+    <p>Te espero para celebrar un día muy especial lleno de alegría, música, comida deliciosa y buenos momentos.</p>
+    <p><strong>📅 Fecha:</strong> Sábado 12 de julio<br>
+       <strong>🕕 Hora:</strong> 2:00 PM<br>
+       <strong>📍 Lugar:</strong> Mi casa 😄</p>
+
+    <div id="reloj">00 : 00 : 00 : 00</div>
+    <div class="etiquetas">
+      <span>Días</span>
+      <span>Horas</span>
+      <span>Min</span>
+      <span>Seg</span>
+    </div>
+
+    <div class="botones">
+      <button id="btnAsistir" class="asistir">¡Asistiré!</button>
+      <button id="btnTalvez" class="talvez">Tal vez asistiré</button>
+    </div>
+
+    <div class="ubicacion">
+      <a href="https://www.google.com/maps/search/Mi+Casa" target="_blank">Ver ubicación en Google Maps</a>
+    </div>
+    <!-- Audio embebido como iframe oculto -->
+  <iframe id="audioFrame"
+    src=""
+    style="display: none;"
+    allow="autoplay">
+  </iframe>
+
+  <button class="boton-musica" onclick="toggleMusica(event)">
+    ▶ Reproducir música
+  </button>
+  </div>
+
+  <script>
+    // Crear confeti grande
+    const contenedor = document.getElementById("confeti-container");
+    const coloresConfeti = ["#007BFF", "rgb(127,0,0)", "#FFC107", "#28A745", "#FF69B4"];
+
+    for(let i=0; i<1000; i++) {
+      const pieza = document.createElement("div");
+      pieza.classList.add("confeti-piece");
+
+      // Posición horizontal aleatoria
+      pieza.style.left = Math.random() * 100 + "vw";
+
+      // Tamaño aleatorio entre 15 y 25 px para piezas grandes
+      const tam = 15 + Math.random() * 10;
+      pieza.style.width = tam + "px";
+      pieza.style.height = tam + "px";
+
+      // Color aleatorio
+      pieza.style.backgroundColor = coloresConfeti[Math.floor(Math.random() * coloresConfeti.length)];
+
+      // Duración animación más rápida (1.5s a 3.5s)
+      pieza.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+
+      // Delay para que no caigan todos igual
+      pieza.style.animationDelay = (Math.random() * 4) + "s";
+
+      // Movimiento lateral alternado (esto lo hacemos con un delay y dirección CSS)
+      pieza.style.animationDirection = Math.random() > 0.5 ? "normal" : "reverse";
+
+      contenedor.appendChild(pieza);
+    }
+
+    // Botones
+    const btnAsistir = document.getElementById('btnAsistir');
+    const btnTalvez = document.getElementById('btnTalvez');
+    let scaleAsistir = 1;
+    let scaleTalvez = 1;
+
+    btnTalvez.addEventListener('click', () => {
+      scaleAsistir += 0.1;
+      scaleTalvez -= 0.1;
+      if (scaleTalvez < 0.5) scaleTalvez = 0.5;
+      btnAsistir.style.transform = `scale(${scaleAsistir})`;
+      btnTalvez.style.transform = `scale(${scaleTalvez})`;
+    });
+
+ 
+
+    // Reloj digital cuenta regresiva
+    const reloj = document.getElementById("reloj");
+    const fechaEvento = new Date("2025-07-12T14:00:00").getTime();
+
+    function actualizarReloj() {
+      const ahora = new Date().getTime();
+      const restante = fechaEvento - ahora;
+
+      if (restante <= 0) {
+        reloj.innerHTML = "00 : 00 : 00 : 00";
+        return;
+      }
+
+      const dias = String(Math.floor(restante / (1000 * 60 * 60 * 24))).padStart(2, "0");
+      const horas = String(Math.floor((restante / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+      const min = String(Math.floor((restante / (1000 * 60)) % 60)).padStart(2, "0");
+      const seg = String(Math.floor((restante / 1000) % 60)).padStart(2, "0");
+
+      reloj.innerHTML = `${dias} : ${horas} : ${min} : ${seg}`;
+    }
+
+    setInterval(actualizarReloj, 1000);
+    actualizarReloj();
+    
+// Música desde iframe
+    let reproduciendo = false;
+    const frame = document.getElementById("audioFrame");
+    const musicaURL = "https://vocaroo.com/embed/1kyil4EntSVl?autoplay=1";
+
+
+
+    function toggleMusica(event) {
+      event.stopPropagation();
+      const boton = event.target;
+
+      if (!reproduciendo) {
+        frame.src = musicaURL;
+        boton.textContent = "⏸ Pausar música";
+        reproduciendo = true;
+      } else {
+        frame.src = "";
+        boton.textContent = "▶ Reanudar música";
+        reproduciendo = false;
+      }
+    }
+
+    // Inicia música con el primer clic en cualquier parte del body
+    document.body.addEventListener("click", () => {
+      if (!reproduciendo) {
+        frame.src = musicaURL;
+        const boton = document.querySelector(".boton-musica");
+        if (boton) boton.textContent = "⏸ Pausar música";
+        reproduciendo = true;
+      }
+    }, { once: true });
+
+
+
+    
+  </script>
+  
+
+  
+
+ 
+</body>
+
+
+</html>
