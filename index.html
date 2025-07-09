@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Invitación de Cumpleaños</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&family=Orbitron:wght@700&display=swap" rel="stylesheet">
-  <style>
+ 
+ <style>
     body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      position: relative;
-      font-family: 'Fredoka', sans-serif;
-      background: linear-gradient(to bottom, #e0f0ff, #ffffff);
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px;
+  overflow-x: hidden;
+  background: #f0f0f0;
+  font-family: 'Fredoka', sans-serif;
+}
 
     .confeti-container {
       position: fixed;
@@ -55,16 +59,22 @@
   background-color: #ffffffdd;
   border: 2px solid rgb(127, 0, 0);
   border-radius: 20px;
-  padding: 30px;
-  max-width: 500px;
+  padding: 25px;
+  max-width: 400px;
   text-align: center;
-  margin: 80px auto;
+  margin: 20px auto ;
+  font-size: 16px;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
   font-family: 'Fredoka', sans-serif;
 
   /* Animación inicial suave y efecto continuo */
   animation: aparecer 10s ease forwards, brillo 8s infinite alternate, flotarTarjeta 8s ease-in-out infinite;
   opacity: 0;
+}
+.invitacion {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 @keyframes aparecer {
@@ -180,17 +190,114 @@
       background: #218838;
     }
 
-    @media (max-width: 500px) {
-      .botones {
-        flex-direction: column;
-        gap: 15px;
-      }
-    }
+   /* Estilo para pantallas medianas (tablets y laptops pequeñas) */
+@media (min-width: 768px) {
+  .invitacion {
+    max-width: 600px;
+    font-size: 18px;
+    padding: 35px;
+  }
+}
+
+/* Estilo para pantallas grandes (escritorio) */
+@media (min-width: 1024px) {
+  .invitacion {
+    max-width: 700px;
+    font-size: 20px;
+    padding: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .confeti-piece {
+    width: 8px !important;
+    height: 8px !important;
+  }
+}
+
+
+  h1 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+ /* Estilo general (PC / escritorio) */
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.botones button {
+  font-size: 16px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Estilo específico para móviles */
+@media (max-width: 600px) {
+  .botones {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .botones button {
+    width: 100%;
+    font-size: 18px;
+    padding: 14px;
+  }
+}
+
+  #reloj {
+    font-size: 22px;
+    padding: 8px 15px;
+  }
+
+  .etiquetas {
+    font-size: 12px;
+  }
+
+  .ubicacion a {
+    font-size: 15px;
+    padding: 12px 15px;
+  }
+
+  #modoFiestaBtn {
+    font-size: 15px;
+    padding: 14px 15px;
+    width: 100%;
+  }
+
+
+@media (max-width: 600px) {
+  body {
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .invitacion {
+    margin-top: 0;
+  }
+}
+
+
 
 body.fiestero {
   background: linear-gradient(135deg, #000, #111);
   animation: coloresFiesta 4s infinite alternate;
+  background-size: 400% 400%;
+  background-attachment: fixed;
 }
+
+
 
 .invitacion.fiestera {
   border: 3px solid #ff00ff;
@@ -245,19 +352,90 @@ body.fiestero {
   100% { background-position: 0% 50%; }
 }
 
+/* Contenedor centrado */
+.modo-fiesta-container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botón base (computadora) */
+#modoFiestaBtn {
+  background: #ff00ff;
+  color: white;
+  font-weight: bold;
+  padding: 12px 24px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  width: auto;             /* ← Asegura que se ajuste al texto */
+  max-width: 100%;         /* ← No se pasa de pantalla */
+}
+
+/* Hover en escritorio */
+#modoFiestaBtn:hover {
+  background: #e000e0;
+  transform: scale(1.05);
+}
+
+/* Solo en móviles: ancho completo */
+@media (max-width: 600px) {
+  #modoFiestaBtn {
+    width: 100%;
+    font-size: 18px;
+    padding: 14px;
+  }
+}
+
+.confirmacion-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  background: #ff00ff;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0;
+  z-index: 9999;
+  box-shadow: 0 0 15px #ff00ff;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  width: fit-content;
+  max-width: 90vw;
+  white-space: nowrap;
+}
+
+
+.confirmacion-popup.mostrar {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
   </style>
 </head>
+
 <body>
 
   <!-- Confeti grande animado -->
   <div class="confeti-container" id="confeti-container"></div>
 
   <div class="invitacion">
-    <h1>¡Estás Invitado a mi Cumpleaños!</h1>
-    <p>Te espero para celebrar un día muy especial lleno de alegría, música, comida deliciosa y buenos momentos.</p>
+    <h1>🎉 ¡Estás invitado al OSO FEST Vol. 1! 🐻🔥</h1>
+    <p>Prepárate para un día destructivo de fiesta 🐒😈🔥
+Habrá comida deliciosa 🌮 y bebidas para todos, 🍻🥤
+pero si tienes antojos especiales, 🍓🍾
+¡puedes traer lo tuyo también! 🎒😉</p>
     <p><strong>📅 Fecha:</strong> Sábado 12 de julio<br>
        <strong>🕕 Hora:</strong> 2:00 PM<br>
        <strong>📍 Lugar:</strong> Mi casa 😄</p>
+     <p><strong>¡NO FALTES TQM! 💖</strong></p>  
 
     <div id="reloj">00 : 00 : 00 : 00</div>
     <div class="etiquetas">
@@ -268,17 +446,20 @@ body.fiestero {
     </div>
 
     <div class="botones">
-      <button id="btnAsistir" class="asistir">¡Asistiré!</button>
+     <button id="btnAsistir" class="asistir">¡Asistiré!</button>
+
+    
+
       <button id="btnTalvez" class="talvez">Tal vez asistiré</button>
     </div>
 
     <div class="ubicacion">
-      <a href="https://www.google.com/maps/search/Mi+Casa" target="_blank">Ver ubicación en Google Maps</a>
-<div style="margin-top: 25px;">
-  <button id="modoFiestaBtn" style="background: #ff00ff; color: white; font-weight: bold; padding: 12px 20px; border-radius: 10px; border: none; cursor: pointer;">
-    🕹️ Activar Modo Fiesta
-  </button>
+      <a href="https://maps.app.goo.gl/iGhamQ5kbh6FJ4ac9?g_st=aw" target="_blank">Ver ubicación en Google Maps</a>
+<div class="modo-fiesta-container">
+  <button id="modoFiestaBtn">🕹️ Activar Modo Fiesta</button>
 </div>
+
+
    
  </div>
     <!-- Audio embebido como iframe oculto -->
@@ -297,78 +478,8 @@ body.fiestero {
   
 
   <script>
-    // Crear confeti grande
-    const contenedor = document.getElementById("confeti-container");
-    const coloresConfeti = ["#007BFF", "rgb(127,0,0)", "#FFC107", "#28A745", "#FF69B4"];
 
-    for(let i=0; i<1000; i++) {
-      const pieza = document.createElement("div");
-      pieza.classList.add("confeti-piece");
-
-      // Posición horizontal aleatoria
-      pieza.style.left = Math.random() * 100 + "vw";
-
-      // Tamaño aleatorio entre 15 y 25 px para piezas grandes
-      const tam = 15 + Math.random() * 10;
-      pieza.style.width = tam + "px";
-      pieza.style.height = tam + "px";
-
-      // Color aleatorio
-      pieza.style.backgroundColor = coloresConfeti[Math.floor(Math.random() * coloresConfeti.length)];
-
-      // Duración animación más rápida (1.5s a 3.5s)
-      pieza.style.animationDuration = (1.5 + Math.random() * 2) + "s";
-
-      // Delay para que no caigan todos igual
-      pieza.style.animationDelay = (Math.random() * 4) + "s";
-
-      // Movimiento lateral alternado (esto lo hacemos con un delay y dirección CSS)
-      pieza.style.animationDirection = Math.random() > 0.5 ? "normal" : "reverse";
-
-      contenedor.appendChild(pieza);
-    }
-
-    // Botones
-    const btnAsistir = document.getElementById('btnAsistir');
-    const btnTalvez = document.getElementById('btnTalvez');
-    let scaleAsistir = 1;
-    let scaleTalvez = 1;
-
-    btnTalvez.addEventListener('click', () => {
-      scaleAsistir += 0.1;
-      scaleTalvez -= 0.1;
-      if (scaleTalvez < 0.5) scaleTalvez = 0.5;
-      btnAsistir.style.transform = `scale(${scaleAsistir})`;
-      btnTalvez.style.transform = `scale(${scaleTalvez})`;
-    });
-
- 
-
-    // Reloj digital cuenta regresiva
-    const reloj = document.getElementById("reloj");
-    const fechaEvento = new Date("2025-07-12T14:00:00").getTime();
-
-    function actualizarReloj() {
-      const ahora = new Date().getTime();
-      const restante = fechaEvento - ahora;
-
-      if (restante <= 0) {
-        reloj.innerHTML = "00 : 00 : 00 : 00";
-        return;
-      }
-
-      const dias = String(Math.floor(restante / (1000 * 60 * 60 * 24))).padStart(2, "0");
-      const horas = String(Math.floor((restante / (1000 * 60 * 60)) % 24)).padStart(2, "0");
-      const min = String(Math.floor((restante / (1000 * 60)) % 60)).padStart(2, "0");
-      const seg = String(Math.floor((restante / 1000) % 60)).padStart(2, "0");
-
-      reloj.innerHTML = `${dias} : ${horas} : ${min} : ${seg}`;
-    }
-
-    setInterval(actualizarReloj, 1000);
-    actualizarReloj();
-    
-// Música desde iframe
+    // Música desde iframe
     let reproduciendo = false;
     const frame = document.getElementById("audioFrame");
     const musicaURL = "https://vocaroo.com/embed/1kyil4EntSVl?autoplay=1";
@@ -399,6 +510,69 @@ body.fiestero {
         reproduciendo = true;
       }
     }, { once: true });
+
+    
+    
+    // Crear confeti grande
+    const contenedor = document.getElementById("confeti-container");
+    const coloresConfeti = ["#007BFF", "rgb(127,0,0)", "#FFC107", "#28A745", "#FF69B4"];
+
+    for(let i=0; i<100; i++) {
+      const pieza = document.createElement("div");
+      pieza.classList.add("confeti-piece");
+
+      // Posición horizontal aleatoria
+      pieza.style.left = Math.random() * 100 + "vw";
+
+      // Tamaño aleatorio entre 15 y 25 px para piezas grandes
+      const tam = 15 + Math.random() * 10;
+      pieza.style.width = tam + "px";
+      pieza.style.height = tam + "px";
+
+      // Color aleatorio
+      pieza.style.backgroundColor = coloresConfeti[Math.floor(Math.random() * coloresConfeti.length)];
+
+      // Duración animación más rápida (1.5s a 3.5s)
+      pieza.style.animationDuration = (1.5 + Math.random() * 2) + "s";
+
+      // Delay para que no caigan todos igual
+      pieza.style.animationDelay = (Math.random() * 4) + "s";
+
+      // Movimiento lateral alternado (esto lo hacemos con un delay y dirección CSS)
+      pieza.style.animationDirection = Math.random() > 0.5 ? "normal" : "reverse";
+
+      contenedor.appendChild(pieza);
+    }
+
+ 
+
+   
+
+    // Reloj digital cuenta regresiva
+    const reloj = document.getElementById("reloj");
+    const fechaEvento = new Date("2025-07-12T14:00:00").getTime();
+
+    function actualizarReloj() {
+      const ahora = new Date().getTime();
+      const restante = fechaEvento - ahora;
+
+      if (restante <= 0) {
+        reloj.innerHTML = "00 : 00 : 00 : 00";
+        return;
+      }
+
+      const dias = String(Math.floor(restante / (1000 * 60 * 60 * 24))).padStart(2, "0");
+      const horas = String(Math.floor((restante / (1000 * 60 * 60)) % 24)).padStart(2, "0");
+      const min = String(Math.floor((restante / (1000 * 60)) % 60)).padStart(2, "0");
+      const seg = String(Math.floor((restante / 1000) % 60)).padStart(2, "0");
+
+      reloj.innerHTML = `${dias} : ${horas} : ${min} : ${seg}`;
+    }
+
+    setInterval(actualizarReloj, 1000);
+    actualizarReloj();
+    
+
 
 
     
@@ -431,6 +605,148 @@ body.fiestero {
   });
 </script>
   
+<script>
+  // Constantes del formulario y entradas
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLScdC7TZOciCljjtMY_WMZTzQimS5xSint215UV4z7xDZXKa0g/formResponse";
+  const entryNombre = "entry.1200692340";
+  const entryAsistencia = "entry.275674261";
+  const entryCompania = "entry.904153986";
+
+  const btnAsistir = document.getElementById('btnAsistir');
+  const btnTalvez = document.getElementById('btnTalvez');
+
+  let scaleAsistir = 1;
+  let scaleTalvez = 1;
+
+  // Crear y estilizar popup global de confirmación
+  const popup = document.createElement('div');
+  popup.className = 'confirmacion-popup';
+  document.body.appendChild(popup);
+
+  // Función para mostrar popup con animación
+  function mostrarPopup(mensaje) {
+    popup.textContent = mensaje;
+    popup.style.opacity = '1';
+    popup.style.pointerEvents = 'auto';
+    popup.style.transform = 'translateX(-50%) translateY(0)';
+
+    setTimeout(() => {
+      popup.style.opacity = '0';
+      popup.style.pointerEvents = 'none';
+      popup.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 3000);
+  }
+
+  // Función para mostrar modal del formulario con tipo de asistencia personalizado
+  function mostrarFormularioAsistencia(asistenciaTipo = "Siii") {
+    const modal = document.createElement('div');
+    Object.assign(modal.style, {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%) scale(0.8)',
+      background: 'linear-gradient(135deg, #6a11cb 0%, #2575fc 100%)',
+      borderRadius: '16px',
+      boxShadow: '0 8px 24px rgba(37, 117, 252, 0.6)',
+      padding: '30px 35px',
+      zIndex: '10000',
+      fontFamily: "'Fredoka', sans-serif",
+      color: 'white',
+      minWidth: '320px',
+      maxWidth: '400px',
+      textAlign: 'center',
+      opacity: '0',
+      transition: 'opacity 0.3s ease, transform 0.3s ease',
+    });
+
+    modal.innerHTML = `
+      <h2 style="margin-bottom: 10px; font-weight: 700;">Confirma tu asistencia</h2>
+      <p style="margin-bottom: 20px; font-size: 15px;">Has seleccionado: <strong>${asistenciaTipo === "Siii" ? "¡Asistiré!" : "Tal vez asistiré"}</strong></p>
+      <label style="display: block; margin-bottom: 15px; text-align: left; font-weight: 600; font-size: 15px;">
+        Tu nombre:<br>
+        <input type="text" id="nombreInvitado"
+          style="width: 100%; padding: 10px 12px; margin-top: 8px; border-radius: 10px; border: none; font-size: 14px; box-shadow: inset 0 0 8px rgba(0,0,0,0.2); font-family: 'Fredoka', sans-serif;" />
+      </label>
+      <label style="display: block; margin-bottom: 25px; text-align: left; font-weight: 600; font-size: 15px;">
+        ¿Vendrás acompañado(a)?<br>
+        <select id="acompanado"
+          style="width: 100%; padding: 10px 12px; margin-top: 8px; border-radius: 10px; border: none; font-size: 14px; box-shadow: inset 0 0 8px rgba(0,0,0,0.2); background: white; color: #333; cursor: pointer; font-family: 'Fredoka', sans-serif;">
+          <option value="">Selecciona una opción</option>
+          <option value="Sí">Sí</option>
+          <option value="No">No</option>
+          <option value="Tal vez">Tal vez</option>
+        </select>
+      </label>
+      <button id="enviarConfirmacion"
+        style="background: linear-gradient(90deg, #ff416c, #ff4b2b); color: white; padding: 12px 30px; border: none; border-radius: 12px; font-weight: 700; font-size: 16px; cursor: pointer; box-shadow: 0 6px 15px rgba(255,75,43,0.6);">
+        Enviar
+      </button>
+    `;
+
+    document.body.appendChild(modal);
+
+    setTimeout(() => {
+      modal.style.opacity = '1';
+      modal.style.transform = 'translate(-50%, -50%) scale(1)';
+    }, 10);
+
+    // Evento clic en botón enviar
+    document.getElementById('enviarConfirmacion').addEventListener('click', () => {
+      const nombre = document.getElementById('nombreInvitado').value.trim();
+      const compania = document.getElementById('acompanado').value;
+
+      if (nombre && compania) {
+        enviarFormulario(asistenciaTipo, compania, nombre);
+        mostrarPopup(asistenciaTipo === "Siii"
+          ? `🎉 ¡Gracias por confirmar, ${nombre}!`
+          : `🤔 ¡Gracias por considerarlo, ${nombre}!`);
+        modal.remove();
+      } else {
+        alert("Por favor completa todos los campos.");
+      }
+    });
+
+    // Cerrar modal al hacer clic fuera
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.remove();
+    });
+  }
+
+  // Enviar datos al formulario de Google
+  function enviarFormulario(asistencia, compania = "", nombre = "") {
+    const data = new FormData();
+    data.append(entryAsistencia, asistencia);
+    data.append(entryCompania, compania);
+    data.append(entryNombre, nombre);
+
+    fetch(formURL, {
+      method: "POST",
+      mode: "no-cors",
+      body: data
+    }).then(() => {
+      console.log("Formulario enviado con éxito.");
+    }).catch(() => {
+      console.warn("No se pudo enviar el formulario.");
+    });
+  }
+
+  // Eventos para los botones principales
+  btnAsistir.addEventListener('click', () => {
+    mostrarFormularioAsistencia("Siii");
+  });
+
+  btnTalvez.addEventListener('click', () => {
+    mostrarFormularioAsistencia("Tal vez...");
+
+    // Escalado divertido
+    scaleAsistir += 0.1;
+    scaleTalvez -= 0.1;
+    if (scaleTalvez < 0.5) scaleTalvez = 0.5;
+    btnAsistir.style.transform = `scale(${scaleAsistir})`;
+    btnTalvez.style.transform = `scale(${scaleTalvez})`;
+  });
+</script>
+
 
  
 </body>
